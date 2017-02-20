@@ -2,16 +2,19 @@
   <div id="app">
     <img src="./assets/logo.png">
     <hello></hello>
+    <HDialog ref="hDialog" ></HDialog>
   </div>
 </template>
 
 <script>
 import Hello from './components/Hello'
+import HDialog from './components/master'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    Hello,
+    HDialog
   }
 }
 </script>
