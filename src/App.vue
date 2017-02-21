@@ -8,13 +8,11 @@
 
 <script>
 import Hello from './components/Hello'
-import HDialog from './components/master'
 
 export default {
   name: 'app',
   components: {
-    Hello,
-    HDialog
+    Hello
   }
 }
 </script>

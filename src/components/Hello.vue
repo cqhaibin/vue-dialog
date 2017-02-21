@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import test from './test'
 export default {
   name: 'hello',
   data () {
@@ -15,9 +16,12 @@ export default {
   },
   methods: {
     openDialog: function () {
-      let dialog = this.$parent.$refs.hDialog
+      let dialog = this.$root.$refs.hDialog
       dialog.open({
-        template: '<div>第一个组件</div>'
+        template: '<div>第一个组件<test></test></div>',
+        components: {
+          test
+        }
       })
     }
   }

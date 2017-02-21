@@ -1,6 +1,6 @@
 <template>
   <hDialogBack ref="back" >
-    <component :is="comp"></component>
+    <component v-for="comp in comps" :is="comp"></component>
   </hDialogBack>
 </template>
 
@@ -11,7 +11,7 @@ export default {
   name: 'HDialog-master',
   data () {
     return {
-      comp: null
+      comps: []
     }
   },
   components: {
@@ -19,8 +19,10 @@ export default {
   },
   methods: {
     open: function (comp) {
-      this.comp = comp
-      this.$refs.back.open()
+      this.comps.push(comp)
+      if (!this.$refs.back.show) {
+        this.$refs.back.open()
+      }
     }
   }
 }
