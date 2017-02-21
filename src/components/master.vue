@@ -1,6 +1,18 @@
 <template>
   <hDialogBack ref="back" >
-    <component v-for="comp in comps" :is="comp"></component>
+    <div class="modal-dialog" v-for="(comp,index) in comps" >
+      <div class="modal-content">
+        <div class="modal-header" >
+          header
+        </div>
+        <div class="modal-body">
+          <component :is="comp"></component>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" v-on:click="clickHandler(btn, comp, index)" v-for="btn in btns" >{{btn}}</button>
+        </div>
+      </div>
+    </div>
   </hDialogBack>
 </template>
 
@@ -14,6 +26,14 @@ export default {
       comps: []
     }
   },
+  props: {
+    'btns': {
+      type: Array,
+      default: function () {
+        return ['Ok', 'cancel']
+      }
+    }
+  },
   components: {
     hDialogBack
   },
@@ -22,6 +42,15 @@ export default {
       this.comps.push(comp)
       if (!this.$refs.back.show) {
         this.$refs.back.open()
+      }
+    },
+    clickHandler: function (type, comp, index) {
+      /** 应该创建一个Promise，传递给handler */
+      if (comp.methods.handler && comp.methods.handler(type)) {
+        this.comps.splice(index, 1)
+      }
+      if (this.comps.length === 0 && this.$refs.back.show) {
+        this.$refs.back.close()
       }
     }
   }
