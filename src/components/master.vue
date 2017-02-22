@@ -49,19 +49,26 @@ export default {
   },
   methods: {
     open: function (comp) {
+      comp.promise = new Promise(function (resolve, reject) {
+        comp.resolve = resolve
+        comp.reject = reject
+      })
       this.comps.push(comp)
       if (!this.$refs.back.show) {
         this.$refs.back.open()
       }
+      return comp.promise
     },
     clickHandler: function (type, comp, index) {
-      /** 应该创建一个Promise，传递给handler */
-      if (comp.methods.handler && comp.methods.handler(type)) {
-        this.comps.splice(index, 1)
+      let self = this
+      let close = function () {
+        self.comps.splice(index, 1)
+        if (self.comps.length === 0 && self.$refs.back.show) {
+          self.$refs.back.close()
+        }
       }
-      if (this.comps.length === 0 && this.$refs.back.show) {
-        this.$refs.back.close()
-      }
+      /** 只提供promise模式 */
+      comp.resolve({'type': type, 'close': close})
     }
   }
 }

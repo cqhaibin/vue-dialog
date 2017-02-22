@@ -9,8 +9,12 @@
   export default {
     methods: {
       openDiv: function () {
-        this.$root.$refs.hDialog.open({
-          template: '<div>第二层了</div>'
+        let promise = this.$root.$refs.hDialog.open({
+          template: '<div>第二层了<button>还想弹一个层</button></div>'
+        })
+        promise.then(function (arg) {
+          alert('test.....')
+          arg.close()
         })
       }
     }

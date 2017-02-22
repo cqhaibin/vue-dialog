@@ -17,17 +17,15 @@ export default {
   methods: {
     openDialog: function () {
       let dialog = this.$root.$refs.hDialog
-      dialog.open({
+      let vDialog = dialog.open({
         template: '<div>第一个组件<test></test></div>',
         components: {
           test
-        },
-        methods: {
-          handler: function (type) {
-            alert('外部')
-            return true
-          }
         }
+      })
+      vDialog.then(function (arg) {
+        alert('promise-reslove')
+        arg.close()
       })
     }
   }
