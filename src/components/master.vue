@@ -1,19 +1,20 @@
 <template>
-  <hDialogBack ref="back" >
-    <div class="modal-dialog" v-for="(comp,index) in comps" >
-      <div class="modal-content">
-        <div class="modal-header" >
-          header
-        </div>
-        <div class="modal-body">
-          <component :is="comp"></component>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" v-on:click="clickHandler(btn, comp, index)" v-for="btn in btns" >{{btn}}</button>
+    <div>
+      <div class="modal-dialog"  v-for="(comp,index) in comps" >
+        <div class="modal-content">
+          <div class="modal-header" >
+            header{{pzIndex}}--
+          </div>
+          <div class="modal-body">
+            <component :is="comp"></component>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" v-on:click="clickHandler(btn, comp, index)" v-for="btn in btns" >{{btn}}</button>
+          </div>
         </div>
       </div>
+      <hDialogBack ref="back"  ></hDialogBack>
     </div>
-  </hDialogBack>
 </template>
 
 <script>
@@ -31,7 +32,17 @@ export default {
       type: Array,
       default: function () {
         return ['Ok', 'cancel']
+      },
+      'mIndex': {
+        type: Number,
+        default: 5555
       }
+    }
+  },
+  computed: {
+    pzIndex: function () {
+      console.log(this.mIndex)
+      return this.mIndex
     }
   },
   components: {
