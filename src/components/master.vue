@@ -1,9 +1,9 @@
 <template>
     <div>
-      <div class="modal-dialog"  v-for="(comp,index) in comps" >
+      <div class="modal-dialog" v-bind:style="{zIndex:realIndex + index}"  v-for="(comp,index) in comps" >
         <div class="modal-content">
           <div class="modal-header" >
-            header{{pzIndex}}--
+            header{{mIndex}}
           </div>
           <div class="modal-body">
             <component :is="comp"></component>
@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <hDialogBack ref="back"  ></hDialogBack>
+      <hDialogBack ref="back" v-bind:z-index="realIndex-1" ></hDialogBack>
     </div>
 </template>
 
@@ -32,16 +32,15 @@ export default {
       type: Array,
       default: function () {
         return ['Ok', 'cancel']
-      },
-      'mIndex': {
-        type: Number,
-        default: 5555
       }
+    },
+    'mIndex': {
+      type: Number,
+      default: 19861016
     }
   },
   computed: {
-    pzIndex: function () {
-      console.log(this.mIndex)
+    realIndex: function () {
       return this.mIndex
     }
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button v-on:click="openDialog" v-bind:zIndex="19861018" >openDialog</button>
+    <button v-on:click="openDialog" >openDialog</button>
   </div>
 </template>
 
