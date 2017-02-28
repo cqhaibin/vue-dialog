@@ -4,9 +4,9 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Vue from 'vue'
 import App from './App'
 
-import HDialog from './components/master'
+import HDialog from './index'
 
-Vue.component('HDialog', HDialog) /** 存放在根组件同级的Vue实例上 */
+Vue.use(HDialog)
 
 /* eslint-disable no-new */
 new Vue({

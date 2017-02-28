@@ -3,7 +3,7 @@
       <div class="modal-dialog" v-bind:style="{zIndex:realIndex + index}"  v-for="(comp,index) in comps" >
         <div class="modal-content">
           <div class="modal-header" >
-            header{{mIndex}}
+            header
           </div>
           <div class="modal-body">
             <component :is="comp"></component>
@@ -21,7 +21,7 @@
 import hDialogBack from './background'
 
 export default {
-  name: 'HDialog-master',
+  name: 'HDialog',
   data () {
     return {
       comps: []
@@ -73,3 +73,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.modal-dialog .modal-content {
+  position: absolute;
+}
+</style>
