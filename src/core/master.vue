@@ -1,24 +1,29 @@
 <template>
-    <div>
-      <div class="modal-dialog" v-bind:style="{zIndex:realIndex + index}"  v-for="(comp,index) in comps" >
-        <div class="modal-content">
-          <div class="modal-header" >
-            header
-          </div>
-          <div class="modal-body">
-            <component :is="comp"></component>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" v-on:click="clickHandler(btn, comp, index)" v-for="btn in btns" >{{btn}}</button>
-          </div>
+  <div>
+    <div class="modal-content"  v-for="(comp,index) in comps" v-bind:style="style(index,comp)" >
+        <div class="modal-header" >
+          header
+        </div>
+        <div class="modal-body">
+          <component :is="comp"></component>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" v-on:click="clickHandler(btn.value, comp, index)" v-for="btn in btns" >{{btn.text}}</button>
         </div>
       </div>
-      <hDialogBack ref="back" v-bind:z-index="realIndex-1" ></hDialogBack>
-    </div>
+    <hDialogBack ref="back" v-bind:z-index="realIndex-1" ></hDialogBack>
+  </div>
 </template>
 
 <script>
 import hDialogBack from './background'
+
+function getclientPoint () {
+  return {
+    width: document.documentElement.clientWidth || document.body.clientWidth,
+    height: document.documentElement.clientHeight || document.body.clientHeight
+  }
+}
 
 export default {
   name: 'HDialog',
@@ -31,7 +36,7 @@ export default {
     'btns': {
       type: Array,
       default: function () {
-        return ['Ok', 'cancel']
+        return [{text: 'ok', value: 'ok'}, {text: 'cancel', value: 'cancel'}]
       }
     },
     'mIndex': {
@@ -53,6 +58,8 @@ export default {
         comp.resolve = resolve
         comp.reject = reject
       })
+      comp.width = comp.width || 600
+      comp.height = comp.height || 400
       this.comps.push(comp)
       if (!this.$refs.back.show) {
         this.$refs.back.open()
@@ -69,13 +76,23 @@ export default {
       }
       /** 只提供promise模式 */
       comp.resolve({'type': type, 'close': close})
+    },
+    style: function (index, comp) {
+      let point = getclientPoint()
+      return {
+        zIndex: this.realIndex + index,
+        width: comp.width + 'px',
+        height: comp.height + 'px',
+        left: ((point.width - comp.width) / 2) + 'px',
+        top: ((point.height - comp.height) / 2) + 'px'
+      }
     }
   }
 }
 </script>
 
 <style>
-.modal-dialog .modal-content {
+.modal-content {
   position: absolute;
 }
 </style>

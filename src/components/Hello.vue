@@ -21,10 +21,11 @@ export default {
         template: '<div>第一个组件<test></test></div>',
         components: {
           test
-        }
+        },
+        width: 800
       })
       vDialog.then(function (arg) {
-        alert('promise-reslove')
+        alert('第一层' + arg.type)
         arg.close()
       })
     }

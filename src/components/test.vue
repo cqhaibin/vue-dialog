@@ -10,10 +10,10 @@
     methods: {
       openDiv: function () {
         let promise = this.$root.$refs.hDialog.open({
-          template: '<div>第二层了<button>还想弹一个层</button></div>'
+          template: '<div>第二层了</div>'
         })
         promise.then(function (arg) {
-          alert('test.....')
+          alert('第二层' + arg.type)
           arg.close()
         })
       }
