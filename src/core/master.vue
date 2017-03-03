@@ -11,7 +11,7 @@
           <button type="button" class="btn btn-default" v-on:click="clickHandler(btn.value, comp, index)" v-for="btn in btns" >{{btn.text}}</button>
         </div>
       </div>
-    <hDialogBack ref="back" v-bind:z-index="realIndex-1" ></hDialogBack>
+    <hDialogBack ref="back" v-bind:z-index="realIndex-1"></hDialogBack>
   </div>
 </template>
 
@@ -51,6 +51,13 @@ export default {
   },
   components: {
     hDialogBack
+  },
+  mounted: function () {
+    let self = this
+    this.$refs.back.$on('closeing.click', function () {
+      let index = self.comps.length - 1
+      self.clickHandler('close', self.comps[index], index)
+    })
   },
   methods: {
     open: function (comp) {

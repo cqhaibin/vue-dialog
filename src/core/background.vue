@@ -1,5 +1,5 @@
 <template>
-    <div class="dialog-background" v-bind:class="className" v-show="show" v-bind:style="{ zIndex: zIndex }" ></div>
+    <div class="dialog-background" v-bind:class="className" v-on:click="closeing" v-show="show" v-bind:style="{ zIndex: zIndex }" ></div>
 </template>
 
 <script>
@@ -26,6 +26,9 @@ export default {
     },
     close: function () {
       this.show = false
+    },
+    closeing: function () {
+      this.$emit('closeing.click')
     }
   }
 }
